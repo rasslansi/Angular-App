@@ -2,26 +2,34 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Personne } from '../model/Personne';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CvService {
-  personnes! : Observable<Personne[]>;
   private apiUrl = 'https://apilb.tridevs.net/api/personnes';
+  private personnesSubject = new BehaviorSubject<Personne[]>([]);
+  personnes = this.personnesSubject.asObservable();
+
   constructor(private http: HttpClient) {
-    this.personnes = this.fetchPersonnes();
-    console.log(this.personnes);
+    this.fetchPersonnes();
   }
 
   private fetchPersonnes() {
-    return this.http.get<Personne[]>(this.apiUrl)
+    this.http.get<Personne[]>(this.apiUrl).subscribe(
+      (data) => {
+        this.personnesSubject.next(data);
+      },
+      (error) => {
+        console.error('Error fetching data from API:', error);
+      }
+    );
   }
 
-  // getPersonnesSync(): Personne[] {
-  //   console.log('worrkinngggggg');
-  //   console.log(this.personnesSubject.value[0]);
-  //   console.log(this.personnes$);
-  //   return this.personnesSubject.value;
-  // }
+  getPersonneById(id: number): Personne | null {
+    const personnes = this.personnesSubject.getValue();
+    const foundPersonne = personnes.find(personne => personne.id == id);
+    return foundPersonne || null;
+  }
 }
