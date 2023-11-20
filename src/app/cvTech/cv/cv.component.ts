@@ -14,13 +14,15 @@ constructor(
   private cvService: CvService
 ){}
 ngOnInit(): void {
-  this.cvService.personnes.subscribe(
-    (data)=>{
+  this.cvService.personnes.subscribe({
+    next: (data)=>{
       this.personnes= data;
     },
-    (error)=>{
+    error:(error)=>{
       console.log('error')
-    }
+    },
+  }
+
   );
 
 }

@@ -6,10 +6,37 @@ import { DeleteCvComponent } from "./cvTech/delete-cv/delete-cv.component"
 import { AddCvComponent } from "./cvTech/add-cv/add-cv.component"
 import { DetailCvComponent } from "./cvTech/detail-cv/detail-cv.component"
 import { DetailComponent } from "./cvTech/detail/detail.component"
+import { AppComponent } from "./app.component"
+import { HomeComponent } from "./home/home.component"
+import { LoginComponent } from "./login/login.component"
 const APP_Routing: Routes = [
-    {path: 'cv/:id', component: DetailComponent },    
-    {path: 'cv', component: CvComponent }, 
-       
-]
+    {
+      path: '',
+      component: HomeComponent,
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
+      },
+    {
+      path: 'cv',
+      children: [
+        {
+          path: ':id',
+          component: DetailComponent,
+          // canActivate: [AuthGuard],
+        },
+        {
+          path: '',
+          component: CvComponent,
+          // canActivate: [AuthGuard],
+        },
+        // No need for a redirect here, it will already default to 'cv'
+      ],
+    },
+    // Wildcard route at the end
+    { path: '**', redirectTo: '' },
+  ];
+  
 
 export const ROUTING = RouterModule.forRoot(APP_Routing)

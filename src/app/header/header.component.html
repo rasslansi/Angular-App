@@ -6,14 +6,17 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" >Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" [routerLink]="['']">Home <span class="sr-only"></span></a>
           </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['cv']">CVs <span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['cv']">CVs <span class="sr-only"></span></a>
         </li>
-        <li class="nav-item active">
-            <a class="nav-link" >Detaila<span class="sr-only">(current)</span></a>
+        <li class="nav-item active" *ngIf="!isLoggedIn()">
+            <a class="nav-link" [routerLink]="['login']">login<span class="sr-only"></span></a>
           </li>
+         <li class="nav-item active" *ngIf="isLoggedIn()">
+          <button (click)="logout()" type="button" class="btn btn-primary" [routerLink]="['']">Logout</button>
+        </li>
       </ul>
     </div>
   </nav>

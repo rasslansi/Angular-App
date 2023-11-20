@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CvComponent } from './cvTech/cv/cv.component';
@@ -15,6 +15,8 @@ import { HeaderComponent } from './header/header.component';
 import { AddCvComponent } from './cvTech/add-cv/add-cv.component';
 import { DeleteCvComponent } from './cvTech/delete-cv/delete-cv.component';
 import { DetailComponent } from './cvTech/detail/detail.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,12 @@ import { DetailComponent } from './cvTech/detail/detail.component';
     HeaderComponent,
     AddCvComponent,
     DeleteCvComponent,
-    DetailComponent
+    DetailComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
