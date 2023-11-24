@@ -16,14 +16,29 @@ export class CvService {
   }
 
   private fetchPersonnes() {
-    return this.http.get<Personne[]>(this.apiUrl) 
+    return this.http.get<Personne[]>(this.apiUrl)
   }
 
   getPersonneById(id: number): Observable<Personne | null> {
-    return this.http.get<Personne[]>(this.apiUrl).pipe(
+    return this.personnes.pipe(
       map((personnes) => {
         const foundPersonne = personnes.find((personne) => personne.id == id);
-        return foundPersonne || null;   
+        return foundPersonne || null;
+      })
+    );
+  }
+
+  FilterPersonsByAgeSup(age: number): Observable<Personne[]> {
+    return this.personnes.pipe(
+      map((personnes) => {
+        return personnes.filter((personne) => personne.age > age);
+      })
+    );
+  }
+  FilterPersonsByAgeInf(age: number): Observable<Personne[]> {
+    return this.personnes.pipe(
+      map((personnes) => {
+        return personnes.filter((personne) => personne.age <= age);
       })
     );
   }

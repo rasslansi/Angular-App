@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierComponent } from './notifier/notifier.component';
+import { TabsComponent } from './cvTech/tabs/tabs.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NotifierComponent } from './notifier/notifier.component';
     DetailComponent,
     HomeComponent,
     LoginComponent,
-    NotifierComponent
+    NotifierComponent,
+    TabsComponent
   ],
   imports: [
     BrowserAnimationsModule,
