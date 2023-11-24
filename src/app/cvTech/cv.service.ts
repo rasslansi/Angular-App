@@ -8,28 +8,23 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CvService {
-  private apiUrl = 'https://apilb.tridevs.net/api/personnes';
-  private personnesSubject = new BehaviorSubject<Personne[]>([]);
-  personnes = this.personnesSubject.asObservable();
+  readonly apiUrl = 'https://apilb.tridevs.net/api/personnes';
+  personnes= new Observable<Personne[]>;
 
   constructor(private http: HttpClient) {
-    this.fetchPersonnes();
+    this.personnes = this.fetchPersonnes();
   }
 
   private fetchPersonnes() {
-    this.http.get<Personne[]>(this.apiUrl).subscribe(
-      (data) => {
-        this.personnesSubject.next(data);
-      },
-      (error) => {
-        console.error('Error fetching data from API:', error);
-      }
-    );
+    return this.http.get<Personne[]>(this.apiUrl) 
   }
 
-  getPersonneById(id: number): Personne | null {
-    const personnes = this.personnesSubject.getValue();
-    const foundPersonne = personnes.find(personne => personne.id == id);
-    return foundPersonne || null;
+  getPersonneById(id: number): Observable<Personne | null> {
+    return this.http.get<Personne[]>(this.apiUrl).pipe(
+      map((personnes) => {
+        const foundPersonne = personnes.find((personne) => personne.id == id);
+        return foundPersonne || null;   
+      })
+    );
   }
 }

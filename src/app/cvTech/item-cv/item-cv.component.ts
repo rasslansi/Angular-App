@@ -14,4 +14,10 @@ export class ItemCvComponent {
       this.personne
     );
   }
+  hasImage(){
+    if(this.personne.path == "as.jpg")
+    return true;
+  else
+    return false;
+  }
 }

@@ -18,9 +18,22 @@ export class DetailComponent implements OnInit{
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params) => {
-        this.personne = this.cvService.getPersonneById(params.id);
+        this.cvService.getPersonneById(params.id).subscribe(
+          (personne) => {
+            this.personne = personne;
+            console.log("works",params.id);
+            console.log(personne);
+          }
+        );
       }
     );
   }
-  
+  hasImage(){
+    if(this.personne){
+    if(this.personne.path == "as.jpg")
+    return true;
+  else
+    return false;}
+  else return false;
+  }
 }

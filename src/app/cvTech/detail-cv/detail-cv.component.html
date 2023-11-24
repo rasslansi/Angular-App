@@ -6,7 +6,8 @@
               <img src="assets/image/insat.jpg"/>
           </div>
           <div class="user">
-              <img class="img-circle" src="assets/image/{{personne.path}}"/>
+             <img *ngIf="hasImage()" class="img-circle" src="assets/image/{{personne.path}}"/>
+             <img *ngIf="!hasImage()" class="img-circle" src="assets/image/undefined.jpeg"/>
           </div>
           <div class="content">
               <div class="main">

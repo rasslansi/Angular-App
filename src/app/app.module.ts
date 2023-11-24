@@ -17,6 +17,9 @@ import { DeleteCvComponent } from './cvTech/delete-cv/delete-cv.component';
 import { DetailComponent } from './cvTech/detail/detail.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotifierComponent } from './notifier/notifier.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +35,14 @@ import { LoginComponent } from './login/login.component';
     DeleteCvComponent,
     DetailComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    NotifierComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+    }),
     FormsModule,
     BrowserModule,
     HttpClientModule,

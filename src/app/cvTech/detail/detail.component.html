@@ -4,7 +4,8 @@
         <div class="tab-pane active" id="profile">
           <h4 class="m-y-2">Cv {{personne.firstName|titlecase}} {{personne.name|titlecase}}</h4>
           <div class="d-flex justify-content-center">
-            <img width="150px" height="150px" class="rounded-circle align-content-center" src="assets/image/{{personne.path}}" alt="">
+            <img *ngIf="hasImage()" width="50px" height="50px"  class="img-circle align-content-center" src="assets/image/{{personne.path}}"/>
+            <img *ngIf="!hasImage()" width="50px" height="50px"class="img-circle align-content-center" src="assets/image/undefined.jpeg"/>
           </div>
           <div class="row">
             <div class="col-md-12">

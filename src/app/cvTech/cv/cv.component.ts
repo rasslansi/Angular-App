@@ -8,8 +8,9 @@ import { CvService } from '../cv.service';
   styleUrls: ['./cv.component.css']
 })
 export class CvComponent implements OnInit {
-personnes!: Personne [];
-selectedPersonne! : Personne;
+isSelected: Boolean= false;
+personnes: Personne [] =[];
+selectedPersonne : Personne=new Personne(0,"undefined","undefined",0,"undefined",0,"undefined");
 constructor(
   private cvService: CvService
 ){}
@@ -28,5 +29,6 @@ ngOnInit(): void {
 }
 selectPersonne(personne : Personne){
   this.selectedPersonne = personne;
+  this.isSelected=true;
 }
 }

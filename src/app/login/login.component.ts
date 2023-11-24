@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NotifierService } from '../notifier.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent {
   };
 
   constructor(
+    private toaster: NotifierService,
     private auth : AuthService,
     private http: HttpClient,
     private router : Router
@@ -26,7 +28,7 @@ export class LoginComponent {
     const authenticationEndpoint = 'https://apilb.tridevs.net/api/Users/login';
     this.http.post(authenticationEndpoint, this.user).subscribe(
       (response: any) => {
-
+        this.toaster.showSuccess("Welcome Back!","Authentication successful!")
         console.log('Authentication successful!', response);
 
 
@@ -39,6 +41,7 @@ export class LoginComponent {
 
       },
       (error) => {
+        this.toaster.showError("error","Authentication failed!")
         console.error('Authentication failed!', error);
       }
     );
