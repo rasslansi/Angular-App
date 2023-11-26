@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CvComponent } from './cvTech/cv/cv.component';
@@ -21,6 +21,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierComponent } from './notifier/notifier.component';
 import { TabsComponent } from './cvTech/tabs/tabs.component';
+import { AutoCompleteComponent } from './cvTech/auto-complete/auto-complete.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
@@ -38,19 +41,23 @@ import { TabsComponent } from './cvTech/tabs/tabs.component';
     HomeComponent,
     LoginComponent,
     NotifierComponent,
-    TabsComponent
+    TabsComponent,
+    AutoCompleteComponent
   ],
-  imports: [
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      preventDuplicates: true,
-    }),
-    FormsModule,
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    ROUTING
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            preventDuplicates: true,
+        }),
+        FormsModule,
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        ROUTING,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

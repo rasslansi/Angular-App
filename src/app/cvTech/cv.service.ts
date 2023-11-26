@@ -125,4 +125,26 @@ export class CvService {
       })
     );
   }
+    getPersonsByName(searchString: string): Observable<Personne[]> {
+        // Construct filter parameters
+        const filterParams = {
+            where: {
+                name: {
+                    like: `%${searchString}%`,
+                },
+            },
+        };
+
+        // Convert filterParams to a string
+        const params = new HttpParams().set('filter', JSON.stringify(filterParams));
+
+        // Make the API request with the filter parameter
+        return this.http.get<Personne[]>(this.apiUrl, { params }).pipe(
+            catchError((error) => {
+                console.error('Error fetching filtered data:', error);
+                return of(this.fakePersonnes2); // Return an empty array in case of an error
+            }),
+            retry(2)
+        );
+    }
 }
