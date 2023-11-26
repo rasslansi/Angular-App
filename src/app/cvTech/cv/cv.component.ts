@@ -23,7 +23,8 @@
           this.personnes= data;
         },
         error:(error)=>{
-          console.log('error')
+          console.log('error');
+            this.personnes=this.cvService.fakePersonnes;
         },
       }
 
