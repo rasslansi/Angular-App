@@ -19,7 +19,11 @@ export class ProduitsViewComponent implements OnInit{
         this.products = data
         console.log('data in products');
         console.log(this.products);
-        this.remainingProducts=this.produitservice.remainingValues;
+        this.produitservice.remainingValues.subscribe(
+            (data)=>{
+                this.remainingProducts=data;
+            }
+        );
         console.log("remaining products"+this.remainingProducts);
       },
       error: () => {

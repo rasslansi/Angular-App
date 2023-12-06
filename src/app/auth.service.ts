@@ -10,9 +10,9 @@ export class AuthService {
   private userSubject: BehaviorSubject<User | null>;
   user$: Observable<User | null>;
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private router:Router
-  ) { 
+  ) {
     const storedUser = localStorage.getItem('currentUser');
     this.userSubject = new BehaviorSubject<User | null>(storedUser ? JSON.parse(storedUser) : null);
     this.user$ = this.userSubject.asObservable();
@@ -25,9 +25,6 @@ export class AuthService {
       } catch (error) {
         console.error('Error saving user to localStorage:', error);
       }
-  }
-  isAuth(): boolean {
-    return !!this.userSubject.value;
   }
 
 private getStoredUser(): User | null {

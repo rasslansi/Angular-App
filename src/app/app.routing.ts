@@ -10,6 +10,8 @@ import { AppComponent } from "./app.component"
 import { HomeComponent } from "./home/home.component"
 import { LoginComponent } from "./login/login.component"
 import {ProduitsViewComponent} from "./produits/produits-view/produits-view.component";
+import {DetailResolverService} from "./cvTech/detail-resolver.service";
+import {CvResolverService} from "./cvTech/cv-resolver.service";
 const APP_Routing: Routes = [
     {
       path: '',
@@ -29,11 +31,17 @@ const APP_Routing: Routes = [
         {
           path: ':id',
           component: DetailComponent,
+            resolve: {
+                personne: DetailResolverService,
+            }
           // canActivate: [AuthGuard],
         },
         {
           path: '',
           component: CvComponent,
+            resolve: {
+                personnes: CvResolverService,
+            }
           // canActivate: [AuthGuard],
         },
         // No need for a redirect here, it will already default to 'cv'

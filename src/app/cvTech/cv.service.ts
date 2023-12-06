@@ -92,7 +92,7 @@ export class CvService {
             );
     }
 
-    private fetchPersonnes(): Observable<Personne[]> {
+    fetchPersonnes(): Observable<Personne[]> {
         return this.http.get<Personne[]>(this.apiUrl).pipe(
             catchError((error) => {
                 console.error('Error fetching data:', error);

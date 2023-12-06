@@ -16,15 +16,9 @@ export class DetailComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(
+    this.activatedRoute.data.subscribe(
       (params) => {
-        this.cvService.getPersonneById(params.id).subscribe(
-          (personne) => {
-            this.personne = personne;
-            console.log("works",params.id);
-            console.log(personne);
-          }
-        );
+        this.personne = params.personne;
       }
     );
   }

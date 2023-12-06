@@ -3,7 +3,7 @@
 import {concatMap, map, mapTo} from 'rxjs/operators';
 import {HttpClient} from "@angular/common/http";
 import {Injectable, OnInit} from "@angular/core";
-import {catchError, concat, debounceTime, merge, Observable, of, retry} from "rxjs";
+import {BehaviorSubject, catchError, concat, debounceTime, merge, Observable, of, retry} from "rxjs";
 import {Product} from "../model/Produit";
 import {ProductResponse} from "../model/productResponse";
 import {fakeAsync} from "@angular/core/testing";
@@ -15,11 +15,11 @@ import {NotifierService} from "../notifier.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ProduitsService implements OnInit{
+export class ProduitsService {
   private currentPage = 1;
   apiUrl= 'https://dummyjson.com/products';
   private pageSize =12;
-  ApiResponse: Observable<Product[]> = this.fetchAPI(1);
+  ApiResponse: Observable<Product[]> =this.fetchAPI(1);
   fakeProducts:Product[]= [
     {
       id: 1,
@@ -125,15 +125,22 @@ export class ProduitsService implements OnInit{
         'https://i.dummyjson.com/data/products/6/4.jpg'
       ]
     }];
-  total:number =0;
-  remainingValues!: number;
+  total!:number;
+  //how to get first value to not be undefined
+  remainingValuesObservable= new BehaviorSubject<number>(this.total);
+  remainingValues = this.remainingValuesObservable.asObservable();
+    remainingProducts: number;
 
-  ngOnInit() {
-  }
 
-    constructor(private http: HttpClient,
-  private notif :NotifierService) {
-  }
+    constructor(
+        private http: HttpClient,
+        private notif :NotifierService
+                ) {
+        // this.ApiResponse = this.fetchAPI(1);
+        this.remainingValuesObservable.next(this.total);
+          console.log("OnInit"+this.total);
+         this.remainingProducts=this.total;
+      }
 
   private fetchAPI(page: number) {
     const limit = this.pageSize;
@@ -142,18 +149,29 @@ export class ProduitsService implements OnInit{
     let apiUrl=apiUrlWithPage;
     return this.http.get<ProductResponse>(apiUrl).pipe(
             map((data ) => {
-                    this.total = data.total;
-                    console.log("e totaaal"+this.total);
+                    this.total=data.total;
+                    this.remainingProducts=this.total;
                     return data.products;
                 }
             ),
     );
   }
-  nextPage() {
-    if (this.currentPage*this.pageSize <this.total) {
-        this.currentPage++;
-        console.log("haaahyyy" + this.currentPage);
+  private fetchApiTotal() {
 
+    let apiUrl=this.apiUrl;
+    return this.http.get<ProductResponse>(apiUrl).pipe(
+        map((data ) => {
+              return data.total;
+            }
+        ),
+    )
+  }
+  nextPage() {
+      console.log("remaining products next pGE ONLY "+this.remainingProducts)
+    if (this.remainingProducts>0) {
+        console.log("remaining products next pGE "+this.remainingProducts)
+        this.currentPage++;
+        console.log("haaahyyy" + this.currentPage+"remaining products"+this.remainingProducts);
         this.ApiResponse = this.ApiResponse.pipe(
             concatMap(() => this.fetchAPI(this.currentPage))
         );
@@ -161,15 +179,18 @@ export class ProduitsService implements OnInit{
         // Subscribe to trigger the execution
         this.ApiResponse.subscribe(data => {
             console.log('Updated data:', data);
+
             // provide remaining products values
-            this.remainingValues = this.total-this.currentPage*this.pageSize;
-            if (this.remainingValues<0) {
-                this.remainingValues=0;
-            }
+          if (this.total-this.currentPage*this.pageSize<0) {
+            this.remainingValuesObservable.next(0);
+          }else {
+            this.remainingValuesObservable.next(this.remainingProducts - this.pageSize);
+          }
           this.notif.showInfo("Remaining products",""+(this.remainingValues));
         });
-    }else {
-      this.notif.showInfo("Limit reached","c bon yezzi")
+
+    } else {
+        this.notif.showInfo("Limit reached","c bon yezzi");
     }
   }
 

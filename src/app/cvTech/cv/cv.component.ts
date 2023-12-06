@@ -2,6 +2,7 @@
     import { Personne } from 'src/app/model/Personne';
     import { CvService } from '../cv.service';
     import { Observable } from 'rxjs';
+    import {ActivatedRoute} from "@angular/router";
 
     @Component({
       selector: 'app-cv',
@@ -15,21 +16,16 @@
     personnes: Personne [] =[];
     selectedPersonne : Personne=new Personne(0,"undefined","undefined",0,"undefined",0,"undefined");
     constructor(
-      private cvService: CvService
+      private cvService: CvService,
+      private activatedRoute: ActivatedRoute,
     ){}
     ngOnInit(): void {
-      this.cvService.personnes.subscribe({
-        next: (data)=>{
-          this.personnes= data;
-          console.log(this.personnes);
-        },
-        error:(error)=>{
-          console.log('error');
-            this.personnes=this.cvService.fakePersonnes;
-        },
-      }
+      this.activatedRoute.data.subscribe(
+            (params) => {
+                this.personnes = params.personnes;
+            }
+        );
 
-      );
 
     }
     selectPersonne(personne : Personne){
