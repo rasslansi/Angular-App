@@ -9,6 +9,7 @@ import { DetailComponent } from "./cvTech/detail/detail.component"
 import { AppComponent } from "./app.component"
 import { HomeComponent } from "./home/home.component"
 import { LoginComponent } from "./login/login.component"
+import {ProduitsViewComponent} from "./produits/produits-view/produits-view.component";
 const APP_Routing: Routes = [
     {
       path: '',
@@ -18,6 +19,10 @@ const APP_Routing: Routes = [
         path: 'login',
         component: LoginComponent,
       },
+    {
+        path: 'produit',
+        component: ProduitsViewComponent,
+    },
     {
       path: 'cv',
       children: [
@@ -37,6 +42,6 @@ const APP_Routing: Routes = [
     // Wildcard route at the end
     { path: '**', redirectTo: '' },
   ];
-  
+
 
 export const ROUTING = RouterModule.forRoot(APP_Routing)
