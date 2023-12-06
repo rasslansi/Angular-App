@@ -21,6 +21,7 @@
       this.cvService.personnes.subscribe({
         next: (data)=>{
           this.personnes= data;
+          console.log(this.personnes);
         },
         error:(error)=>{
           console.log('error');

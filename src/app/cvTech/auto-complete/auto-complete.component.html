@@ -3,10 +3,10 @@
     <mat-label>
       Name:
     </mat-label>
-    <input matInput formControlName="personne" type="text" [matAutocomplete]="auto" />
+    <input matInput formControlName="personne" type="text" [matAutocomplete]="auto" placeholder="Type name here" />
     <mat-autocomplete #auto=matAutocomplete>
       <mat-option *ngFor="let personne of personnes" [value]="personne.firstName + ' ' + personne.name">
-        <app-item-cv [personne]="personne"></app-item-cv>
+        <app-item-cv (selectedPersonne)="selectPersonne($event)" [personne]="personne"></app-item-cv>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

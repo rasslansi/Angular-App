@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Personne} from "../../model/Personne";
 import {CvService} from "../cv.service";
 import {error} from "@angular/compiler-cli/src/transformers/util";
@@ -13,6 +13,7 @@ import {debounceTime} from "rxjs";
 export class AutoCompleteComponent implements OnInit {
   formGroup !: FormGroup;
   personnes!: Personne[];
+  @Output() selectedPersonne = new EventEmitter();
   constructor(
     private formBuilder : FormBuilder,
     private cvService: CvService
@@ -36,6 +37,13 @@ export class AutoCompleteComponent implements OnInit {
             }
         });
       })
+  }
+
+  selectPersonne(selectedPersonne : Personne){
+    this.selectedPersonne.emit(
+      selectedPersonne
+    );
+
   }
 
     ngOnInit(): void {

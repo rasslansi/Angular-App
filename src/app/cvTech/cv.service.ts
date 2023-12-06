@@ -59,7 +59,7 @@ export class CvService {
             job: 'Product Manager',
         },
     ];
-  fakePersonnes2:Personne[]=[
+    fakePersonnes2:Personne[]=[
       {
           id: 1,
           name: 'Doe',
@@ -96,7 +96,7 @@ export class CvService {
         return this.http.get<Personne[]>(this.apiUrl).pipe(
             catchError((error) => {
                 console.error('Error fetching data:', error);
-                return of(this.fakePersonnes); // Return an empty array in case of an error
+                return of(this.fakePersonnes); // Return fake array in case of an error
             }),
             retry(2)
         );

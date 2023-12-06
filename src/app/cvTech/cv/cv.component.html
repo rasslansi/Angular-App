@@ -1,6 +1,7 @@
 
 <div class="row">
   <div class="col-md-6 col-sm-3">
+    <app-auto-complete (selectedPersonne)="selectPersonne($event)" ></app-auto-complete>
     <app-tabs [tabsArray]="tabs" (onTabChange)="tabChange($event)"></app-tabs>
     <app-list-cv (selectedPersonne)="selectPersonne($event)" [personnes]="personnes"></app-list-cv>
   </div>

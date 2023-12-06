@@ -24,6 +24,8 @@ import { TabsComponent } from './cvTech/tabs/tabs.component';
 import { AutoCompleteComponent } from './cvTech/auto-complete/auto-complete.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { ProduitsViewComponent } from './produits/produits-view/produits-view.component';
+import { ProduitsItemComponent } from './produits/produits-item/produits-item.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     LoginComponent,
     NotifierComponent,
     TabsComponent,
-    AutoCompleteComponent
+    AutoCompleteComponent,
+    ProduitsViewComponent,
+    ProduitsItemComponent
   ],
     imports: [
         BrowserAnimationsModule,

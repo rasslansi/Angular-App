@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Remaining Products</h1>
+      <p>Remaining Products: {{ remainingProducts }}</p>
+    </div>
+  <button (click)="loadMore()">Load Next Page</button>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let product of products">
+    <app-produits-item [product]="product" ></app-produits-item>
+    </div>
+  </div>
+</div>
+</div>
