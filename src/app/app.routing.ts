@@ -12,6 +12,10 @@ import { LoginComponent } from "./login/login.component"
 import {ProduitsViewComponent} from "./produits/produits-view/produits-view.component";
 import {DetailResolverService} from "./cvTech/detail-resolver.service";
 import {CvResolverService} from "./cvTech/cv-resolver.service";
+import {
+    AuthGuardService as AuthGuard
+} from './auth-guard.service';
+
 const APP_Routing: Routes = [
     {
       path: '',
@@ -34,7 +38,6 @@ const APP_Routing: Routes = [
             resolve: {
                 personne: DetailResolverService,
             }
-          // canActivate: [AuthGuard],
         },
         {
           path: '',
@@ -46,6 +49,7 @@ const APP_Routing: Routes = [
         },
         // No need for a redirect here, it will already default to 'cv'
       ],
+    canActivate: [AuthGuard],
     },
     // Wildcard route at the end
     { path: '**', redirectTo: '' },
