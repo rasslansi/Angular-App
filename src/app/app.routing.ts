@@ -15,12 +15,39 @@ import {CvResolverService} from "./cvTech/cv-resolver.service";
 import {
     AuthGuardService as AuthGuard
 } from './auth-guard.service';
+import {MasterDetailsComponent} from "./cvTech/master-details/master-details.component";
 
 const APP_Routing: Routes = [
     {
       path: '',
       component: HomeComponent,
     },
+  {
+    path: 'AddCv',
+    component: AddCvComponent,
+  },
+  {
+    path:'list' ,
+    children: [
+      {
+        path: ':id',
+        component: MasterDetailsComponent,
+        resolve: {
+          personne: DetailResolverService,
+          personnes: CvResolverService,
+        }
+      },
+      {
+        path: '',
+        component: MasterDetailsComponent,
+        resolve: {
+          personnes: CvResolverService,
+        },
+        canActivate: [AuthGuard],
+      },
+    ],
+    canActivate: [AuthGuard],
+  },
     {
         path: 'login',
         component: LoginComponent,

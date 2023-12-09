@@ -33,7 +33,7 @@ export class LoginComponent {
 
 
         this.auth.login({
-          id: response.userId,
+          id: response.id,
           email: this.user.email,
         });
 

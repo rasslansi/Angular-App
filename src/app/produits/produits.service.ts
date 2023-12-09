@@ -129,20 +129,18 @@ export class ProduitsService {
   //how to get first value to not be undefined
   remainingValuesObservable= new BehaviorSubject<number>(this.total);
   remainingValues = this.remainingValuesObservable.asObservable();
-    remainingProducts: number;
+    remainingProducts!: number;
+    fetching: boolean = false;
 
 
     constructor(
         private http: HttpClient,
         private notif :NotifierService
                 ) {
-        // this.ApiResponse = this.fetchAPI(1);
-        this.remainingValuesObservable.next(this.total);
-          console.log("OnInit"+this.total);
-         this.remainingProducts=this.total;
       }
 
   private fetchAPI(page: number) {
+      this.fetching=true;
     const limit = this.pageSize;
     const skip = (page - 1)* this.pageSize;
     let apiUrlWithPage = `${this.apiUrl}?limit=${limit}&skip=${skip}`;
@@ -150,45 +148,25 @@ export class ProduitsService {
     return this.http.get<ProductResponse>(apiUrl).pipe(
             map((data ) => {
                     this.total=data.total;
-                    this.remainingProducts=this.total;
+                    this.remainingProducts=this.total-(page* this.pageSize);
+                    if (this.remainingProducts<0) {
+                      this.remainingProducts=0;
+                    }
+                    this.remainingValuesObservable.next(this.remainingProducts);
+                    this.notif.showInfo("Products Loaded successfully ","Remaining products:"+(this.remainingProducts));
+                    this.fetching=false;
                     return data.products;
                 }
             ),
     );
   }
-  private fetchApiTotal() {
 
-    let apiUrl=this.apiUrl;
-    return this.http.get<ProductResponse>(apiUrl).pipe(
-        map((data ) => {
-              return data.total;
-            }
-        ),
-    )
-  }
   nextPage() {
-      console.log("remaining products next pGE ONLY "+this.remainingProducts)
-    if (this.remainingProducts>0) {
-        console.log("remaining products next pGE "+this.remainingProducts)
+    if (this.remainingProducts>0&&!this.fetching) {
         this.currentPage++;
-        console.log("haaahyyy" + this.currentPage+"remaining products"+this.remainingProducts);
         this.ApiResponse = this.ApiResponse.pipe(
             concatMap(() => this.fetchAPI(this.currentPage))
         );
-
-        // Subscribe to trigger the execution
-        this.ApiResponse.subscribe(data => {
-            console.log('Updated data:', data);
-
-            // provide remaining products values
-          if (this.total-this.currentPage*this.pageSize<0) {
-            this.remainingValuesObservable.next(0);
-          }else {
-            this.remainingValuesObservable.next(this.remainingProducts - this.pageSize);
-          }
-          this.notif.showInfo("Remaining products",""+(this.remainingValues));
-        });
-
     } else {
         this.notif.showInfo("Limit reached","c bon yezzi");
     }

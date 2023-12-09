@@ -1,1 +1,27 @@
-<p>add-cv works!</p>
+
+<div class="container">
+  <h2>Add Personne</h2>
+  <form #CvFormulaire="ngForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input [(ngModel)]="personne.name" type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="firstname">First Name:</label>
+      <input type="text" class="form-control" id="firstname" [(ngModel)]="personne.firstname" name="firstName" placeholder="Enter first name">
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input [(ngModel)]="personne.age"  type="text" class="form-control" id="age" placeholder="Enter age" name="age">
+    </div>
+    <div class="form-group">
+      <label for="cin">CIN:</label>
+      <input [(ngModel)]="personne.cin"  type="text" class="form-control" id="cin" placeholder="Enter CIN" name="cin">
+    </div>
+    <div class="form-group">
+      <label for="job">Job:</label>
+      <input [(ngModel)]="personne.job"  type="text" class="form-control" id="job" placeholder="Enter job" name="job">
+    </div>
+    <button [disabled]="CvFormulaire.invalid"  type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+  </form>
+</div>

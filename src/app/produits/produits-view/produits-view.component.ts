@@ -10,6 +10,7 @@ import {ProduitsService} from "../produits.service";
 export class ProduitsViewComponent implements OnInit{
   products:Product[]=[];
     remainingProducts: number = 0;
+
   constructor(private produitservice: ProduitsService) {}
 
   ngOnInit() {

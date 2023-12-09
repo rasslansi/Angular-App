@@ -26,6 +26,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { ProduitsViewComponent } from './produits/produits-view/produits-view.component';
 import { ProduitsItemComponent } from './produits/produits-item/produits-item.component';
+import { MasterDetailsComponent } from './cvTech/master-details/master-details.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProduitsItemComponent } from './produits/produits-item/produits-item.co
     TabsComponent,
     AutoCompleteComponent,
     ProduitsViewComponent,
-    ProduitsItemComponent
+    ProduitsItemComponent,
+    MasterDetailsComponent
   ],
     imports: [
         BrowserAnimationsModule,

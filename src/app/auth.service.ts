@@ -36,6 +36,11 @@ private getStoredUser(): User | null {
     return null;
   }
 }
+getToken(): number | null {
+    const storedUser = this.getStoredUser();
+    console.log(storedUser+" "+storedUser?.id);
+    return storedUser ? storedUser.id : null;
+  }
 loadUserState(): void {
   const storedUser = this.getStoredUser();
   this.userSubject.next(storedUser);

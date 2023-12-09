@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, catchError, debounceTime, Observable, of, retry, switchMap} from 'rxjs';
 import { Personne } from '../model/Personne';
 import { map } from 'rxjs/operators';
+import {AuthService} from "../auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +81,10 @@ export class CvService {
       },
       // Add more fakePersonnes as needed
   ];
-    constructor(private http: HttpClient) {
+    private isAuth!: boolean;
+    constructor(private http: HttpClient,
+                private auth : AuthService
+                ) {
         of(null)
             .pipe(
                 debounceTime(150000), // Adjust the debounce time as needed
@@ -147,4 +151,27 @@ export class CvService {
             retry(2)
         );
     }
+
+  AddCv(personne:{name:string,firstname:string,age:number,cin:number,job:string,path:string}) {
+      this.isAuth=this.auth.isLoggedIn();
+      console.log("show persone"+personne);
+      if (this.isAuth) {
+        const headers = {'Authorization': "" +this.auth.getToken() };
+        console.log(headers);
+        console.log(personne);
+        console.log("show persone2"+personne);
+          this.http.post<{name:string,firstname:string,age:number,cin:number,job:string,path:string}>(this.apiUrl, personne,{ headers }).subscribe(
+              (data) => {
+                  console.log(data);
+              },
+              (error) => {
+                  console.log(error);
+              }
+          );
+      }
+
+      this.http.post<Personne>(this.apiUrl, personne);
+      this.fetchPersonnes();
+
+  }
 }

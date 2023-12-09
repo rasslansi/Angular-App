@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CvService } from '../cv.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Personne } from 'src/app/model/Personne';
