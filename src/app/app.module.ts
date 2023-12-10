@@ -44,6 +44,7 @@ import {AppPreloadingStrategy} from "./routing/app-preloading-strategy";
 
   ],
     imports: [
+      AppRoutingModule,
       cvTechModule,
       AuthentificationModule,
         BrowserAnimationsModule,

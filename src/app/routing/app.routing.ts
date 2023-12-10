@@ -16,6 +16,7 @@ import {
     AuthGuardService as AuthGuard
 } from '../Authentification/services/guard/auth-guard.service';
 import {MasterDetailsComponent} from "../cvTech/master-details/master-details.component";
+import {AppPreloadingStrategy} from "./app-preloading-strategy";
 
 const APP_Routing: Routes = [
     {
@@ -84,4 +85,6 @@ const APP_Routing: Routes = [
   ];
 
 
-export const ROUTING = RouterModule.forRoot(APP_Routing)
+export const ROUTING = RouterModule.forRoot(APP_Routing, {
+  preloadingStrategy: AppPreloadingStrategy,
+})
