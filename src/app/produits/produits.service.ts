@@ -8,7 +8,7 @@ import {Product} from "../model/Produit";
 import {ProductResponse} from "../model/productResponse";
 import {fakeAsync} from "@angular/core/testing";
 import {provideToastr} from "ngx-toastr";
-import {NotifierService} from "../notifier.service";
+import {NotifierService} from "../notifier/services/notifier.service";
 
 // ...
 

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Personne} from "../../model/Personne";
-import {CvService} from "../cv.service";
+import {CvService} from "../services/cv/cv.service";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {debounceTime} from "rxjs";
@@ -43,6 +43,7 @@ export class AutoCompleteComponent implements OnInit {
     this.selectedPersonne.emit(
       selectedPersonne
     );
+    console.log(selectedPersonne);
 
   }
 

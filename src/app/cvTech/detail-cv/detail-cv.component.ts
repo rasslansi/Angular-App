@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Personne } from 'src/app/model/Personne';
-import { EmbaucheService } from '../embauche.service';
+import { EmbaucheService } from '../services/embauche/embauche.service';
 import { Router } from '@angular/router';
 
 @Component({

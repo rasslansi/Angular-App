@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { CvService } from '../cv.service';
+import { CvService } from '../services/cv/cv.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Personne } from 'src/app/model/Personne';
 

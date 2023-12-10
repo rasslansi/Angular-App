@@ -1,6 +1,6 @@
 // http.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CvService } from '../cvTech/cv.service';
+import { CvService } from '../cvTech/services/cv/cv.service';
 
 
 @Component({

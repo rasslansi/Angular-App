@@ -1,6 +1,6 @@
     import { Component, OnInit } from '@angular/core';
     import { Personne } from 'src/app/model/Personne';
-    import { CvService } from '../cv.service';
+    import { CvService } from '../services/cv/cv.service';
     import { Observable } from 'rxjs';
     import {ActivatedRoute} from "@angular/router";
 

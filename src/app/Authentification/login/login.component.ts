@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { NotifierService } from '../notifier.service';
+import { NotifierService } from '../../notifier/services/notifier.service';
 
 @Component({
   selector: 'app-login',

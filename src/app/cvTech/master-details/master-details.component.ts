@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Personne} from "../../model/Personne";
-import {CvService} from "../cv.service";
+import {CvService} from "../services/cv/cv.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
